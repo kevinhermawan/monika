@@ -373,7 +373,6 @@ export abstract class BaseProber implements Prober {
       this.probeConfig?.requests?.findIndex(
         ({ url }) => url === recoveredIncident?.probeRequestURL
       ) || 0
-    const failedRequestAssertion = this.getFailedRequestAssertion(requestIndex)
 
     if (recoveredIncident) {
       removeIncident({
@@ -395,11 +394,6 @@ export abstract class BaseProber implements Prober {
         validation,
         alertId,
       }).catch((error) => log.error(error.mesage))
-    }
-
-    if (!failedRequestAssertion) {
-      log.error('Failed request assertion is not found')
-      return
     }
 
     saveProbeRequestLog({
